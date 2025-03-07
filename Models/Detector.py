@@ -48,17 +48,17 @@ class Detector:
             #Prevents overlapping boxes with this function 
             if len(bboxIdx) != 0: 
                 for i in range(0,len(bboxIdx)): 
-                    bbox = bboxs[np.squeeze(bboxIdx[i])] #Removes the like brackets around a list element and stuff 
+                    bbox = bboxs[np.squeeze(bboxIdx[i])] #Reading the specific index of the list (extracting it) 
                     classConfidence = confidences[np.squeeze(bboxIdx[i])] #Formatting so it doesnt mess up the code 
                     classLabelID = np.squeeze(classLabelIDs[np.squeeze(bboxIdx[i])]) #Formatting it so it doesnt mess up the code 
                     classLabel = self.classesList[classLabelID]
                     classColor = [int(c) for c in self.colorList[classLabelID]] #Gotta do it like this if you arent limiting the previous
                     fps = int(fps)
                     textDisplay = str((classLabel,fps)) 
-                    x,y,w,h = bbox 
+                    x,y,w,h = bbox #Defined by the bbox variable
                     cv2.rectangle(image, (x,y), (x+w, y+h), color=classColor, thickness=2) #Finding the x and y coordinates of the bounding boxes #Its to get all 4 corners of the bounding box, but why does this matter, setting the color of the box to white
                     cv2.putText(image, textDisplay, (x,y), cv2.FONT_ITALIC, 1,color = (0,165,255))
-                    global newX 
+                    global newX #In order to access these variables outside of this particular method 
                     newX = x
                     global newY
                     newY = y
